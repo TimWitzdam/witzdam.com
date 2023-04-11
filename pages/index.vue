@@ -1,5 +1,5 @@
 <template>
-  <div><h1>Hey I'm Tim</h1></div>
+  <div><LandingTopSection></LandingTopSection></div>
 </template>
 <script>
 export default {};

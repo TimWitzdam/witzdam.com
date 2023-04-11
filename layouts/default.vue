@@ -9,7 +9,9 @@
       </nav>
     </header>
   </div>
-  <slot></slot>
+  <main>
+    <slot></slot>
+  </main>
 </template>
 <script>
 export default {};
@@ -35,5 +37,9 @@ a:hover {
   background-color: #2e2e2e;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+}
+main {
+  max-width: 1000px;
+  margin: 5rem auto 0 auto;
 }
 </style>
