@@ -11,7 +11,7 @@
       ></count-up-component>
       <p>people</p>
     </div>
-    <div class="tool-container">
+    <NuxtLink class="tool-container" to="/coming-soon">
       <div>
         <NuxtLink to="/coming-soon">Website word counter</NuxtLink>
         <svg
@@ -31,8 +31,8 @@
         374
         <p> people used this tool</p>
       </div>
-    </div>
-    <div class="tool-container">
+    </NuxtLink>
+    <NuxtLink class="tool-container" to="/coming-soon">
       <div>
         <NuxtLink to="/coming-soon">Broken backlink checker</NuxtLink>
         <svg
@@ -52,7 +52,7 @@
         374
         <p> people used this tool</p>
       </div>
-    </div>
+    </NuxtLink>
   </div>
 </template>
 <script>

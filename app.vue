@@ -22,8 +22,10 @@ html {
 }
 h1 {
   font-size: 3.5rem;
+  font-weight: 900;
 }
 h2 {
   font-size: 2rem;
+  font-weight: 900;
 }
 </style>
