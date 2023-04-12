@@ -163,6 +163,7 @@ export default {
   padding: 1.5rem;
   font-size: small;
   max-width: 15rem;
+  z-index: 1;
 }
 .popup p,
 ul {
