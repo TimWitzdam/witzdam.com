@@ -7,23 +7,9 @@
     </div>
     <LandingContactSection></LandingContactSection>
   </div>
-  <p>{{ renderTime }} ms render time</p>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      renderTime: null,
-    };
-  },
-  created() {
-    const startTime = performance.now();
-    this.$nextTick(() => {
-      const endTime = performance.now();
-      this.renderTime = (endTime - startTime).toFixed(1);
-    });
-  },
-};
+export default {};
 </script>
 <style scoped>
 .middle-section {
@@ -37,7 +23,7 @@ export default {
   .middle-section {
     grid-template-columns: 1fr;
     grid-template-rows: 50% 50%;
-    gap: 5rem 0px;
+    gap: 3.5rem 0px;
     grid-template-areas:
       "."
       ".";

@@ -19,6 +19,7 @@
 }
 html {
   background-color: #161616;
+  overflow-x: hidden;
 }
 h1 {
   font-size: 3.5rem;
@@ -27,5 +28,10 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: 900;
+}
+@media (max-width: 1000px) {
+  html {
+    font-size: 13px;
+  }
 }
 </style>

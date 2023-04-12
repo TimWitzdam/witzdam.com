@@ -12,9 +12,25 @@
   <main>
     <slot></slot>
   </main>
+  <footer>
+    <p>⚡ {{ renderTime }} ms render time</p>
+  </footer>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      renderTime: null,
+    };
+  },
+  created() {
+    const startTime = performance.now();
+    this.$nextTick(() => {
+      const endTime = performance.now();
+      this.renderTime = (endTime - startTime).toFixed(1);
+    });
+  },
+};
 </script>
 <style scoped>
 nav {
@@ -41,5 +57,21 @@ a:hover {
 main {
   max-width: 1000px;
   margin: 5rem auto 0 auto;
+}
+footer {
+  position: absolute;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  opacity: 0.56;
+}
+@media (max-width: 1000px) {
+  nav {
+    margin-top: 1.5rem;
+  }
+  main {
+    padding: 2rem;
+    margin-top: 2rem;
+  }
 }
 </style>

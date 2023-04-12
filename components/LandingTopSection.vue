@@ -69,8 +69,8 @@ export default {};
   opacity: 0.56;
 }
 .dot {
-  height: 10px;
-  width: 10px;
+  min-height: 0.7rem;
+  min-width: 0.7rem;
   background-color: white;
   border-radius: 50%;
   display: inline-block;
@@ -103,5 +103,16 @@ img {
 .description-links {
   display: flex;
   align-items: center;
+}
+@media (max-width: 1000px) {
+  h1 {
+    margin-bottom: 1rem;
+  }
+  .propeties-container {
+    margin-bottom: 1rem;
+  }
+  .propeties-container p {
+    font-size: 0.7rem;
+  }
 }
 </style>

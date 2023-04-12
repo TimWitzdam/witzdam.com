@@ -13,7 +13,7 @@
     </div>
     <NuxtLink class="tool-container" to="/coming-soon">
       <div>
-        <NuxtLink to="/coming-soon">Website word counter</NuxtLink>
+        <h3>Website word counter</h3>
         <svg
           width="16"
           height="14"
@@ -34,7 +34,7 @@
     </NuxtLink>
     <NuxtLink class="tool-container" to="/coming-soon">
       <div>
-        <NuxtLink to="/coming-soon">Broken backlink checker</NuxtLink>
+        <h3>Broken backlink checker</h3>
         <svg
           width="16"
           height="14"
@@ -110,5 +110,10 @@ export default {
 }
 a {
   text-decoration: none;
+}
+@media (max-width: 1000px) {
+  .tool-container {
+    max-width: 100%;
+  }
 }
 </style>

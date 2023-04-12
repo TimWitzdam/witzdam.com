@@ -128,8 +128,8 @@ export default {
   cursor: help;
 }
 .dot {
-  height: 10px;
-  width: 10px;
+  height: 0.7rem;
+  width: 0.7rem;
   background-color: white;
   border-radius: 50%;
   display: inline-block;
@@ -172,5 +172,10 @@ ul {
 }
 .popup li {
   margin-left: 1rem;
+}
+@media (max-width: 1000px) {
+  .tech-stack {
+    flex-wrap: wrap;
+  }
 }
 </style>
