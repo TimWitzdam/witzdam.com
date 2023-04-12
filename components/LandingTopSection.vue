@@ -60,9 +60,6 @@
 export default {};
 </script>
 <style scoped>
-h1 {
-  font-size: 3.5rem;
-}
 .propeties-container {
   display: flex;
   gap: 0.5rem;

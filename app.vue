@@ -20,4 +20,10 @@
 html {
   background-color: #161616;
 }
+h1 {
+  font-size: 3.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
 </style>
