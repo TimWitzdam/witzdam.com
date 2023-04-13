@@ -1,1 +1,7 @@
-export default defineNuxtConfig({});
+export default defineNuxtConfig({
+  app: {
+    head: {
+      htmlAttrs: { lang: "en" },
+    },
+  },
+});

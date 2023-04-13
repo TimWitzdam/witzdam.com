@@ -17,6 +17,7 @@
       name="CryptoDisplay"
       link="https://top.gg/bot/850066255472885800"
       img-name="cryptodisplay-logo.webp"
+      img-alt="cryptodisplay-logo"
       :tech-stack="[
         {
           name: 'Python',
@@ -70,6 +71,7 @@
       name="AgencyLabs"
       link="https://agencylabs.ai"
       img-name="agencylabs-logo.webp"
+      img-alt="agencylabs-logo"
       :tech-stack="[
         {
           name: 'HTML/CSS',

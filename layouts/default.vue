@@ -27,18 +27,22 @@
     <p>⚡ {{ renderTime }} ms render time</p>
   </footer>
 </template>
-<script setup>
-import { ref, onMounted, nextTick } from "vue";
-let renderTime = ref(null);
-let showDropdown = ref(false);
-
-onMounted(() => {
-  const startTime = performance.now();
-  nextTick(() => {
-    const endTime = performance.now();
-    renderTime.value = (endTime - startTime).toFixed(1);
-  });
-});
+<script script>
+export default {
+  data() {
+    return {
+      renderTime: null,
+      showDropdown: false,
+    };
+  },
+  created() {
+    const startTime = performance.now();
+    this.$nextTick(() => {
+      const endTime = performance.now();
+      this.renderTime = (endTime - startTime).toFixed(1);
+    });
+  },
+};
 </script>
 <style scoped>
 nav {

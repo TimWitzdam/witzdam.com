@@ -15,7 +15,7 @@
       <p>Student</p>
     </div>
     <div class="description-container">
-      <img src="/memoji.webp" alt="" />
+      <img src="/memoji.webp" alt="memoji-of-tim" />
       <div class="description">
         <p>
           I'm Tim Witzdam, a full time student from Germany who also loves

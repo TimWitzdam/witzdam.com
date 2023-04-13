@@ -1,6 +1,6 @@
 <template>
   <div class="project-wrapper">
-    <img :src="'/' + imgName" />
+    <img :src="'/' + imgName" :alt="imgAlt" />
     <div class="right">
       <p class="project-type">{{ projectType }}</p>
       <div>
@@ -59,6 +59,7 @@ const props = defineProps([
   "name",
   "link",
   "imgName",
+  "imgAlt",
   "techStack",
 ]);
 let showPopups = ref([]);
