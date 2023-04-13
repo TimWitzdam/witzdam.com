@@ -36,7 +36,7 @@
               />
             </svg>
             Email me</a
-          ><NuxtLink to="/tools">
+          ><NuxtLink to="/coming-soon">
             <svg
               width="16"
               height="14"
@@ -69,8 +69,8 @@ export default {};
   opacity: 0.56;
 }
 .dot {
-  min-height: 0.7rem;
-  min-width: 0.7rem;
+  min-height: 0.5rem;
+  min-width: 0.5rem;
   background-color: white;
   border-radius: 50%;
   display: inline-block;

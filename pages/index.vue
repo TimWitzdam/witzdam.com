@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Head>
+      <Title>Tim Witzdam</Title>
+      <Meta
+        name="description"
+        content="Hi, I'm Tim Witzdam, a full time student from Germany who also loves
+          building cool things using code."
+      />
+    </Head>
     <LandingTopSection></LandingTopSection>
     <div class="middle-section">
       <LandingProjectsSection></LandingProjectsSection>

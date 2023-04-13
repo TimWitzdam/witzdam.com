@@ -9,6 +9,7 @@
         :options="counterOptions"
         duration="3"
       ></count-up-component>
+
       <p>people</p>
     </div>
     <NuxtLink class="tool-container" to="/coming-soon">
@@ -28,7 +29,7 @@
         </svg>
       </div>
       <div style="font-size: 0.9rem">
-        374
+        0
         <p> people used this tool</p>
       </div>
     </NuxtLink>
@@ -49,30 +50,35 @@
         </svg>
       </div>
       <div style="font-size: 0.9rem">
-        374
+        0
         <p> people used this tool</p>
       </div>
     </NuxtLink>
   </div>
 </template>
-<script>
+<script setup>
 import CountUpComponent from "vue-countup-v3";
-export default {
-  components: {
-    CountUpComponent,
-  },
-  data() {
-    return {
-      counterValue: 2531,
-      counterOptions: { separator: "." },
-    };
-  },
-  methods: {
-    updateCounter() {
-      this.counterValue -= 1000;
-    },
-  },
-};
+import axios from "axios";
+import { ref, onMounted } from "vue";
+
+let counterValue = ref(0);
+let counterOptions = { separator: "." };
+
+function updateCounter(to) {
+  counterValue.value = to;
+}
+onMounted(() => {
+  axios
+    .get(`https://api.witzdam.com/stats/tools-user-count`)
+    .then((response) => {
+      if (response.status === 200) {
+        updateCounter(response.data.userCount);
+      }
+    })
+    .catch((error) => {
+      console.error(`Request failed due to: ${error}`);
+    });
+});
 </script>
 <style scoped>
 .sub-heading {

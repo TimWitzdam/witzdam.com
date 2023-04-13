@@ -9,6 +9,7 @@
         :options="counterOptions"
         duration="3"
       ></count-up-component>
+
       <p>people</p>
     </div>
     <LandingProject
@@ -119,24 +120,40 @@
     ></LandingProject>
   </div>
 </template>
-<script>
+<script setup>
 import CountUpComponent from "vue-countup-v3";
-export default {
-  components: {
-    CountUpComponent,
-  },
-  data() {
-    return {
-      counterValue: 85654743,
-      counterOptions: { separator: "." },
-    };
-  },
-  methods: {
-    updateCounter() {
-      this.counterValue -= 1000;
-    },
-  },
-};
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+const counterValue = ref(0);
+const counterOptions = { separator: "." };
+function updateCounter(to) {
+  counterValue.value = to;
+}
+onMounted(() => {
+  axios
+    .get(`https://api.witzdam.com/stats/projects-user-count`)
+    .then((response) => {
+      if (response.status === 200) {
+        updateCounter(response.data.userCount);
+      }
+    })
+    .catch((error) => {
+      console.error(`Request failed due to: ${error}`);
+    });
+  const timer = setInterval(() => {
+    axios
+      .get(`https://api.witzdam.com/stats/projects-user-count`)
+      .then((response) => {
+        if (response.status === 200) {
+          updateCounter(response.data.userCount);
+        }
+      })
+      .catch((error) => {
+        console.error(`Request failed due to: ${error}`);
+      });
+  }, 5000);
+});
 </script>
 <style scoped>
 .sub-heading {

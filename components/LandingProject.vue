@@ -31,7 +31,7 @@
             {{ technology.name }}
           </p>
           <div
-            v-if="showPopups[index]"
+            v-show="showPopups[index]"
             class="popup"
             :style="{ top: mouseY - 220 + 'px', left: mouseX + 'px' }"
             :key="index"
@@ -39,75 +39,52 @@
             <h3>{{ technology.name }}</h3>
             <p>{{ technology.popupInfo.description }}</p>
             <p>Experience: {{ technology.popupInfo.experience }}</p>
+            <p>Use cases:</p>
             <ul>
-              Use cases:
               <li v-for="useCase in technology.popupInfo.useCases">
                 <span>{{ useCase }}</span>
               </li>
             </ul>
           </div>
 
-          <span class="dot" v-if="index != techStack.length - 1"></span>
+          <span class="dot" v-show="index != techStack.length - 1"></span>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    projectType: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    link: {
-      type: String,
-      required: true,
-    },
-    imgName: {
-      type: String,
-      required: true,
-    },
-    techStack: {
-      type: Array,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      showPopups: [],
-      mouseX: 0,
-      mouseY: 0,
-    };
-  },
-  methods: {
-    showPopup(event, index) {
-      this.showPopups[index] = true;
-      this.mouseX = event.clientX;
-      this.mouseY = event.clientY;
+<script setup>
+const props = defineProps([
+  "projectType",
+  "name",
+  "link",
+  "imgName",
+  "techStack",
+]);
+let showPopups = ref([]);
+let mouseX = ref(0);
+let mouseY = ref(0);
+function showPopup(event, index) {
+  showPopups.value[index] = true;
+  mouseX.value = event.clientX;
+  mouseY.value = event.clientY;
 
-      // add event listener to update mouse position
-      document.addEventListener("mousemove", this.updateMousePosition);
-    },
-    updateMousePosition(event) {
-      this.mouseX = event.clientX;
-      this.mouseY = event.clientY;
-    },
-    hidePopup(index) {
-      this.showPopups[index] = false;
-      document.removeEventListener("mousemove", this.updateMousePosition);
-    },
-  },
-  mounted() {
-    for (let i; i < this.techStack.length; i++) {
-      showPopups[i] = false;
-    }
-  },
-};
+  // add event listener to update mouse position
+  document.addEventListener("mousemove", updateMousePosition);
+}
+function updateMousePosition(event) {
+  mouseX.value = event.clientX;
+  mouseY.value = event.clientY;
+}
+function hidePopup(index) {
+  showPopups.value[index] = false;
+  document.removeEventListener("mousemove", updateMousePosition);
+}
+onMounted(() => {
+  for (let i; i < props.techStack.length; i++) {
+    showPopups.value[i] = false;
+  }
+});
 </script>
 <style scoped>
 .tech-stack {
@@ -128,8 +105,8 @@ export default {
   cursor: help;
 }
 .dot {
-  height: 0.7rem;
-  width: 0.7rem;
+  height: 0.5rem;
+  width: 0.5rem;
   background-color: white;
   border-radius: 50%;
   display: inline-block;
@@ -142,6 +119,7 @@ export default {
 }
 .project-wrapper img {
   max-width: 5rem;
+  border-radius: 50%;
 }
 .right {
   margin-left: 2rem;
