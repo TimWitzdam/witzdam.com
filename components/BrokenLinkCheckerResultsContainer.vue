@@ -37,7 +37,7 @@
     </div>
     <div class="results-heading">
       <h2>Results:</h2>
-      <div>
+      <button v-if="counterValues.broken_links > 0" @click="exportToExcel">
         <p>Export to Excel</p>
         <svg
           width="17"
@@ -51,15 +51,19 @@
             fill="white"
           />
         </svg>
-      </div>
+      </button>
     </div>
-
-    <DataTable></DataTable>
+    <DataTable v-if="counterValues.broken_links > 0" :data="rows"></DataTable>
+    <p v-if="counterValues.broken_links === 0" style="text-align: center">
+      🔥 No broken links found
+    </p>
   </div>
 </template>
 <script>
 import CountUpComponent from "vue-countup-v3";
+import * as XLSX from "xlsx";
 export default {
+  props: ["results"],
   components: {
     CountUpComponent,
   },
@@ -72,12 +76,99 @@ export default {
         outbound_links: 0,
       },
       counterOptions: { separator: "." },
+      rows: [],
+      errorAssignments: {
+        400: "Bad request",
+        401: "Unauthorized",
+        402: "Payment required",
+        403: "Forbidden",
+        404: "Not found",
+        405: "Method not allowed",
+        406: "Not acceptable",
+        407: "Proxy authentication required",
+        408: "Request timeout",
+        409: "Conflict",
+        410: "Gone",
+        411: "Length required",
+        412: "Precondition failed",
+        413: "Payload too large",
+        414: "URI too long",
+        415: "Unsupported media type",
+        416: "Range not satisfiable",
+        417: "Expectation failed",
+        418: "I'm a teapot",
+        422: "Unprocessable entity",
+        425: "Too early",
+        426: "Upgrade required",
+        428: "Precondition required",
+        429: "Too many requests",
+        431: "Request header fields too large",
+        451: "Unavailable for legal reasons",
+        500: "Internal server error",
+        501: "Not implemented",
+        502: "Bad gateway",
+        503: "Service unavailable",
+        504: "Gateway timeout",
+        505: "HTTP version not supported",
+        506: "Variant also negotiates",
+        507: "Insufficient storage",
+        508: "Loop detected",
+        510: "Not extended",
+        511: "Network authentication required",
+      },
     };
   },
   methods: {
     updateCounter(to) {
       counterValue.value = to;
     },
+    exportToExcel() {
+      let tempRows = this.rows.slice(); // create a shallow copy of this.rows
+      tempRows.unshift(["Page", "Broken link"]);
+      var workbook = XLSX.utils.book_new(),
+        worksheet = XLSX.utils.aoa_to_sheet(tempRows);
+      workbook.SheetNames.push("First");
+      workbook.Sheets["First"] = worksheet;
+      const excelBuffer = XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const blob = new Blob([excelBuffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "broken_links_export.xlsx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+  },
+  mounted() {
+    this.counterValues.broken_links = this.results.broken_links;
+    this.counterValues.pages_checked = this.results.pages_checked;
+    this.counterValues.inbound_links = this.results.inbound_links;
+    this.counterValues.outbound_links = this.results.outbound_links;
+    for (const i in this.results.data) {
+      for (const link in this.results.data[i]["broken_links"]) {
+        this.rows.push([
+          i,
+          Object.keys(this.results.data[i]["broken_links"][link])[0],
+          {
+            title:
+              "❌ " +
+              Object.values(this.results.data[i]["broken_links"][link])[0],
+            description:
+              this.errorAssignments[
+                Object.values(this.results.data[i]["broken_links"][link])[0]
+              ] || "Unknown error",
+            showHover: false,
+          },
+        ]);
+      }
+    }
+    console.log(this.rows);
   },
 };
 </script>
@@ -114,7 +205,8 @@ h2 {
   padding: none;
   display: block;
 }
-.results-heading div {
+.results-heading button {
+  background-color: #212121;
   display: flex;
   margin-left: auto;
   max-width: fit-content;
@@ -125,5 +217,12 @@ h2 {
   border-radius: 1rem;
   font-weight: 700;
   cursor: pointer;
+}
+@media (max-width: 770px) {
+  .stats-container {
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 40% 40%;
+    text-align: center;
+  }
 }
 </style>

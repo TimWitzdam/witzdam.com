@@ -5,12 +5,13 @@
     :placeholder="placeholder_text"
     :style="{ width: input_width }"
     v-model="value"
+    @keyup.enter="$emit('enterPress')"
   />
 </template>
 
 <script>
 export default {
-  emits: ["getValue"],
+  emits: ["getValue", "enterPress"],
   props: {
     input_type: {
       type: String,

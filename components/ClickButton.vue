@@ -1,10 +1,12 @@
 <template>
-  <button :style="{ width: button_width }">{{ text }}</button>
+  <button :style="{ width: button_width }" @click.prevent="$emit('click')">
+    {{ text }}
+  </button>
 </template>
 
 <script>
 export default {
-  emits: ["getValue"],
+  emits: ["click"],
   props: {
     text: {
       type: String,
@@ -13,16 +15,6 @@ export default {
     button_width: {
       type: String,
       required: false,
-    },
-  },
-  data() {
-    return {
-      value: "",
-    };
-  },
-  watch: {
-    value(value) {
-      this.$emit("getValue", value);
     },
   },
 };

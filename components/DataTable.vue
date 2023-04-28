@@ -65,7 +65,7 @@
 </template>
 <script>
 export default {
-  components: {},
+  props: ["data"],
   data() {
     return {
       columns: [
@@ -73,13 +73,7 @@ export default {
         { title: "Broken link" },
         { title: "Status" },
       ],
-      rows: [
-        [
-          "dentist.com/blog/how-to-get-good-teeth",
-          "dentist.com/i-am-a-test-big",
-          { title: "❌ 404", description: "Not found", showHover: false },
-        ],
-      ],
+      rows: this.data,
     };
   },
   methods: {
@@ -117,7 +111,6 @@ td {
   padding: 1.2rem 0.8rem;
   text-align: left;
   border-bottom: 2px solid #989898;
-  white-space: nowrap;
 }
 
 th {
@@ -131,7 +124,6 @@ th {
   border-radius: 1rem;
   padding: 1rem;
   font-size: small;
-  max-width: 15rem;
   z-index: 1;
 }
 .help-cursor {

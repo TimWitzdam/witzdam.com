@@ -33,9 +33,9 @@
         <p> people used this tool</p>
       </div>
     </NuxtLink>
-    <NuxtLink class="tool-container" to="/coming-soon">
+    <NuxtLink class="tool-container" to="/tools/broken-link-checker">
       <div>
-        <h3>Broken backlink checker</h3>
+        <h3>Broken link checker</h3>
         <svg
           width="16"
           height="14"
