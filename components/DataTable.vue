@@ -1,6 +1,6 @@
 <template>
   <div class="table-container">
-    <table class="table">
+    <table class="table" :style="{ width: tableWidth }">
       <thead>
         <tr>
           <th v-for="column in columns" :key="column" class="column">
@@ -18,7 +18,13 @@
             :class="{
               'help-cursor': cell.constructor === Object,
             }"
-            style="position: relative"
+            :style="{
+              position: 'relative',
+              borderBottom:
+                rowIndex + 1 == rows.length
+                  ? 'none'
+                  : '2px solid rgba(255, 255, 255, 0.56)',
+            }"
           >
             <div
               v-if="cell.constructor === Object && cell.showHover"
@@ -37,6 +43,7 @@
               <p
                 :style="{
                   cursor: cell.constructor === Object ? 'help' : 'pointer',
+                  cursor: link ? 'pointer' : 'auto',
                 }"
               >
                 {{ cell.constructor === Object ? cell.title : cell }}
@@ -48,7 +55,7 @@
                 viewBox="0 0 8 8"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                v-if="cell.constructor !== Object"
+                v-if="link && cell.constructor !== Object"
                 style="cursor: pointer"
               >
                 <path
@@ -65,14 +72,9 @@
 </template>
 <script>
 export default {
-  props: ["data"],
+  props: ["data", "columns", "tableWidth", "link"],
   data() {
     return {
-      columns: [
-        { title: "Page" },
-        { title: "Broken link" },
-        { title: "Status" },
-      ],
       rows: this.data,
     };
   },
@@ -92,7 +94,6 @@ export default {
 </script>
 <style scoped>
 .table-container {
-  outline: 2px solid rgba(255, 255, 255, 0.56);
   background-color: transparent;
   position: relative;
   display: flex;
@@ -100,17 +101,17 @@ export default {
   align-items: center;
   margin-top: 1rem;
   padding: 0 0 2rem 0rem;
-  border-radius: 1.2rem;
 }
 .table {
   border-collapse: collapse;
   width: 100%;
+  outline: 2px solid rgba(255, 255, 255, 0.56);
+  border-radius: 1.2rem;
 }
 th,
 td {
   padding: 1.2rem 0.8rem;
   text-align: left;
-  border-bottom: 2px solid #989898;
 }
 
 th {

@@ -53,7 +53,12 @@
         </svg>
       </button>
     </div>
-    <DataTable v-if="counterValues.broken_links > 0" :data="rows"></DataTable>
+    <DataTable
+      v-if="counterValues.broken_links > 0"
+      :data="rows"
+      :columns="columns"
+      :link="true"
+    ></DataTable>
     <p v-if="counterValues.broken_links === 0" style="text-align: center">
       🔥 No broken links found
     </p>
@@ -77,6 +82,11 @@ export default {
       },
       counterOptions: { separator: "." },
       rows: [],
+      columns: [
+        { title: "Page" },
+        { title: "Broken link" },
+        { title: "Status" },
+      ],
       errorAssignments: {
         400: "Bad request",
         401: "Unauthorized",
